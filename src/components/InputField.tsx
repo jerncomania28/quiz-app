@@ -7,10 +7,10 @@ interface InputFieldProps {
     className: string;
     handleChange: (e: any) => void;
     value: string;
-    required: boolean;
+    required?: boolean;
 }
 
-const InputField = ({ type, name, placeholder, className, handleChange, value, required }: InputFieldProps) => {
+const InputField = ({ type, name, placeholder, className, handleChange, value }: InputFieldProps) => {
     return (
         <input
             type={type}
@@ -19,7 +19,7 @@ const InputField = ({ type, name, placeholder, className, handleChange, value, r
             className={`p-[0.5rem] outline-none border-[1px] border-solid border-[#434343] indent-[10px] focus:valid:border-[1px] focus:valid:border-green-300 focus:valid:border-solid focus:invalid:border-[1px] focus:invalid:border-red-200 focus:inavlid:border-solid ${className}`}
             onChange={handleChange}
             value={value}
-            required={required}
+            required
         />
 
     )

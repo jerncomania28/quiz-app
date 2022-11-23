@@ -58,6 +58,7 @@ const SignUp = () => {
         const { email, password, confirmPassword, ...otherProps } = formInput;
 
         if (!Object.values(formInput).every(Boolean)) {
+            alert("Forms not completely Filled!")
             return;
         }
 
@@ -68,26 +69,39 @@ const SignUp = () => {
 
         try {
 
-            // const response = await createUserViaEmailAndPassword(email, password);
-           
+            const response = await createUserViaEmailAndPassword(email, password);
+
+            console.log(response);
+
+            createUserDoc(response?.user,
+                {
+                    displayName: `${otherProps.firstName} ${otherProps.lastName}`,
+                    email,
+                    phone: `${otherProps.phone}`,
+                    address: `${otherProps.address}`,
+                    role: `${otherProps.role}`
+                }
+            )
+
+            handleReset();
 
         }
         catch (err: any) {
 
             if (err.code === "auth/email-already-exists") {
-                console.log("email already exists");
+                alert("email already exists");
             } else if (err.code === "auth/email-already-in-use") {
-                console.log("email already in use")
+                alert("email already in use")
             } else if (err.code === "auth/weak-password") {
-                console.log("weak password");
+                alert("weak password! , password should be at least 6 characters.");
             } else if (err.code === "auth/invalid-api-key") {
-                console.log("invalid API KEY")
+                alert("invalid API KEY")
             }
             console.log(err);
         }
 
 
-        handleReset();
+
     }
 
     const handleShowPassword = () => {
@@ -109,7 +123,6 @@ const SignUp = () => {
                         className="w-full my-4 md:w-[48%] md:my-auto "
                         handleChange={handleChange}
                         value={formInput.firstName}
-                        required={true}
                     />
                     <InputField
                         type="text"
@@ -118,7 +131,6 @@ const SignUp = () => {
                         className="w-full md:w-[48%] my-4 md:my-auto"
                         handleChange={handleChange}
                         value={formInput.lastName}
-                        required={true}
                     />
                 </div>
 
@@ -129,7 +141,6 @@ const SignUp = () => {
                     className="my-4 w-full"
                     handleChange={handleChange}
                     value={formInput.email}
-                    required={true}
 
                 />
                 <InputField
@@ -139,7 +150,7 @@ const SignUp = () => {
                     className="my-4 w-full"
                     handleChange={handleChange}
                     value={formInput.phone}
-                    required={true}
+
 
                 />
 
@@ -150,7 +161,7 @@ const SignUp = () => {
                     className="my-4 w-full"
                     handleChange={handleChange}
                     value={formInput.address}
-                    required={true}
+
 
                 />
 
@@ -162,7 +173,7 @@ const SignUp = () => {
                         className="my-4 w-full"
                         handleChange={handleChange}
                         value={formInput.password}
-                        required={true}
+
                     />
                     <FontAwesomeIcon
                         icon={showPassword ? faEye : faEyeSlash}
@@ -178,7 +189,7 @@ const SignUp = () => {
                     className="my-4 w-full"
                     handleChange={handleChange}
                     value={formInput.confirmPassword}
-                    required={true}
+
                 />
                 <div className="relative my-3 flex">
                     <div className="flex justify-start items-center mr-4 ">

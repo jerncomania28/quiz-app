@@ -43,13 +43,39 @@ const SignIn = () => {
         setSignInData(defaultSignInData);
     }
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = async (e: any) => {
 
         e.preventDefault();
 
         console.log(signInData);
 
-        handleReset();
+        const { email, password } = signInData;
+
+        if (!Object.values(signInData).every(Boolean)) {
+            alert("Email or Password empty!")
+            return;
+        }
+
+        try {
+
+            await signInViaEmailAndPassword(email, password);
+
+            handleReset();
+
+        } catch (err: any) {
+
+            if (err.code === "auth/wrong-password") {
+                alert("Wrong Password , Check Password !");
+
+            } else if (err.code === "auth/user-not-found") {
+                alert("User Not Found  , Email Not Valid !");
+
+            }
+            console.log(err);
+
+        }
+
+
     }
 
     return (
