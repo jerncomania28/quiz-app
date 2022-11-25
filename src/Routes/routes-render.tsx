@@ -36,16 +36,24 @@ const routeConfig = [
                 <ProfileSection />
             </ProtectedRoutes>
         ),
-        children: [
-            {
-                path: "test",
-                element: <TestPage />
-            },
-            {
-                path: "create-test",
-                element: <CreateTest />
-            }
-        ]
+
+    },
+    {
+        path: "/test",
+        element: (
+            <ProtectedRoutes>
+                <TestPage />
+            </ProtectedRoutes>
+        )
+    },
+
+    {
+        path: "/create-test",
+        element: (
+            <ProtectedRoutes>
+                <CreateTest />
+            </ProtectedRoutes>
+        )
     }
 ]
 

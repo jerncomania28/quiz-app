@@ -5,27 +5,12 @@ import Navigation from "../components/Navigation";
 const HomePage = () => {
     const navigate = useNavigate();
     return (
-        <div className="text-red-300">
+        <div className="relative w-full">
             <Navigation />
-            Quiz Web  Application
 
-            <button
-                type="button"
-                className="text-white bg-black py-2 px-5 rounded "
-                onClick={() => navigate("/profile")}
-            >
-                Student
-
-            </button>
-{/* 
-            <button
-                type="button"
-                className="text-white bg-black py-2 px-5 rounded "
-                onClick={() => navigate("/teacher")}
-            >
-                Teacher
-
-            </button> */}
+            <h1 className="text-[20px] text-center font-bold uppercase my-3">
+                Quiz Web  Application
+            </h1>
 
 
         </div>

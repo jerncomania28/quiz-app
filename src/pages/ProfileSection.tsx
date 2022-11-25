@@ -24,7 +24,7 @@ const ProfileSection = () => {
 
             <Navigation />
 
-            <div className="w-[90%] md:w-[60%] mx-auto flex justify-center items-center flex-col">
+            <div className="w-[90%] h-full md:w-[60%] mx-auto flex justify-center items-center flex-col">
                 <img src={Profile} alt="profile" className="w-[120px] my-3" />
                 <h1 className="my-1 text-[25px] font-bold">{user.displayName}</h1>
                 <p>{user.role}</p>
@@ -33,8 +33,8 @@ const ProfileSection = () => {
                     user.role === "student" &&
                     <button
                         type="button"
-                        className="text-white bg-black py-2 px-5 rounded "
-                        onClick={() => navigate("/profile/test")}
+                        className="text-white bg-black py-2 px-8 rounded my-4 outline-none border-none"
+                        onClick={() => navigate("/test")}
                     >
                         Take Test
 
@@ -44,8 +44,8 @@ const ProfileSection = () => {
                     user.role === "teacher" &&
                     <button
                         type="button"
-                        className="text-white bg-black py-2 px-5 rounded "
-                        onClick={() => navigate("/profile/create-test")}
+                        className="text-white bg-black py-2 px-8 rounded my-4 outline-none border-none"
+                        onClick={() => navigate("/create-test")}
                     >
                         Create Test
 
