@@ -1,5 +1,6 @@
 
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 // components
 import Navigation from "../components/Navigation"
@@ -11,7 +12,8 @@ import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 // authentication
-import { signInViaEmailAndPassword } from "../utils/firebase"
+import { signInViaEmailAndPassword, getCurrentUser, auth } from "../utils/firebase"
+import { connectFirestoreEmulator } from "firebase/firestore"
 
 interface SignInDataProps {
     email: string;
@@ -28,6 +30,8 @@ const SignIn = () => {
     const [signInData, setSignInData] = useState<SignInDataProps>(defaultSignInData);
     const [showSignInPassword, setShowSignInPassword] = useState<boolean>(false);
 
+
+    const navigate = useNavigate();
 
 
     const handleChange = (e: any) => {
@@ -59,6 +63,25 @@ const SignIn = () => {
         try {
 
             await signInViaEmailAndPassword(email, password);
+
+
+            const currentUser = await getCurrentUser(auth);
+
+            console.log("current user", currentUser);
+
+
+            currentUser && navigate("/profile");
+
+            // if (currentUser?.role.trim() === "student") {
+            //     console.log("current user student", currentUser);
+            //     return navigate("/student")
+
+            // } else if (currentUser?.role.trim() === "teacher") {
+            //     console.log("current user teacher", currentUser);
+            //     return navigate("/teacher")
+
+
+            // }
 
             handleReset();
 

@@ -8,7 +8,15 @@ import {
     onAuthStateChanged
 } from "firebase/auth"
 
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore"
+import {
+    getFirestore,
+    doc,
+    getDoc,
+    setDoc,
+    query,
+    collection,
+    getDocs
+} from "firebase/firestore"
 
 
 
@@ -76,5 +84,46 @@ export const createUserDoc = async (userAuth: any, otherProps = {}) => {
     }
 };
 
+
+export const getAllUsers = async (collectionkey: string) => {
+
+    const collectionRef = collection(db, collectionkey);
+
+    const q = query(collectionRef)
+
+    const allUsersSnapshot = await getDocs(q)
+
+    const currentUserSnapshot = await getCurrentUser(auth);
+
+    if (currentUserSnapshot?.role.trim() === "student") {
+
+        const listOfTeachers = allUsersSnapshot.docs.filter((usr: any) => {
+            return usr.data().role.trim() === "teacher"
+        })
+
+        return { ...currentUserSnapshot, listOfTeachers }
+
+    } else if (currentUserSnapshot?.role.trim() === "teacher") {
+
+        const listOfStudents = allUsersSnapshot.docs.filter((usr: any) => {
+            return usr.data().role.trim() === "student"
+        })
+
+        return { ...currentUserSnapshot, listOfStudents }
+    } else {
+        return currentUserSnapshot;
+    }
+
+}
+
+
+export const getCurrentUser = async (auth: any) => {
+
+    const currentUserDocRef = doc(db, "users", auth.currentUser?.uid)
+
+    const currentUserSnapshot = await getDoc(currentUserDocRef);
+
+    return currentUserSnapshot.data();
+}
 
 

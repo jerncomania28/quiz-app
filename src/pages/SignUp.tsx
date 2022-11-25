@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // components
 import InputField from "../components/InputField"
@@ -10,7 +11,8 @@ import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // authentication 
-import { createUserViaEmailAndPassword, createUserDoc } from "../utils/firebase";
+import { createUserViaEmailAndPassword, createUserDoc, getCurrentUser, auth } from "../utils/firebase";
+import { Navigate } from "react-router-dom";
 
 interface FormInputProps {
     firstName: string;
@@ -39,8 +41,9 @@ const SignUp = () => {
     // states 
     const [formInput, setFormInput] = useState<FormInputProps>(defaultFormInput);
     const [showPassword, setShowPassword] = useState<boolean>(false);
-    // const [showError, setshowError] = useState<boolean>(false);
 
+
+    const navigate = useNavigate();
 
     const handleChange = (e: any) => {
         const { name, value } = e.target;
@@ -82,6 +85,17 @@ const SignUp = () => {
                     role: `${otherProps.role}`
                 }
             )
+
+            const currentUser = await getCurrentUser(auth);
+
+
+            currentUser && navigate("/profile")
+
+            // if (currentUser?.role.trim() === "student") {
+            //     return navigate("/student");
+            // } else if (currentUser?.role.trim() === "teacher") {
+            //     return navigate("/teacher")
+            // }
 
             handleReset();
 

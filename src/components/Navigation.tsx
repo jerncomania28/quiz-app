@@ -1,18 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect, useContext } from "react";
 
 import { Link } from "react-router-dom"
 
 import { signOutUser, authStateChange } from "../utils/firebase"
+import { AuthContext } from "../context/auth";
 
 const Navigation = () => {
 
-    const [isLoggedIn, setIsLogged] = useState<boolean>(false);
 
+    const { isLoggedIn, handleIsLoggedIn } = useContext(AuthContext);
+    
     useEffect(() => {
         const unsubscribeFn = () => {
             const unsubscribe = authStateChange((user) => {
                 const _ac = user ? true : false;
-                setIsLogged(_ac);
+                handleIsLoggedIn(_ac);
             })
 
             return unsubscribe;
