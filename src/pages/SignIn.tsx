@@ -51,8 +51,6 @@ const SignIn = () => {
 
         e.preventDefault();
 
-        console.log(signInData);
-
         const { email, password } = signInData;
 
         if (!Object.values(signInData).every(Boolean)) {
@@ -64,24 +62,10 @@ const SignIn = () => {
 
             await signInViaEmailAndPassword(email, password);
 
-
             const currentUser = await getCurrentUser(auth);
 
-            console.log("current user", currentUser);
 
-
-            currentUser && navigate("/profile");
-
-            // if (currentUser?.role.trim() === "student") {
-            //     console.log("current user student", currentUser);
-            //     return navigate("/student")
-
-            // } else if (currentUser?.role.trim() === "teacher") {
-            //     console.log("current user teacher", currentUser);
-            //     return navigate("/teacher")
-
-
-            // }
+            currentUser && navigate("/profile")
 
             handleReset();
 

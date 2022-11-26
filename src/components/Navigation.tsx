@@ -5,11 +5,14 @@ import { Link } from "react-router-dom"
 import { signOutUser, authStateChange } from "../utils/firebase"
 import { AuthContext } from "../context/auth";
 
+//assets
+import Profile from "../assets/profile.png";
+
 const Navigation = () => {
 
 
     const { isLoggedIn, handleIsLoggedIn } = useContext(AuthContext);
-    
+
     useEffect(() => {
         const unsubscribeFn = () => {
             const unsubscribe = authStateChange((user) => {
@@ -28,17 +31,28 @@ const Navigation = () => {
     return (
         <nav className="w-full flex justify-around items-center py-8 shadow-sm mb-[1rem] ">
 
-            <h1 className="text-[16px] font-bold ">Logo</h1>
+            <Link
+                to={"/"}
+                className="text-[16px] font-bold ">
+                Logo
+            </Link>
 
             {
                 isLoggedIn && (
-                    <button
-                        type="button"
-                        className="text-white bg-black py-2 px-5 rounded "
-                        onClick={signOutUser}
-                    >
-                        sign out
-                    </button>
+                    <div className="flex">
+                        <button
+                            type="button"
+                            className="text-white bg-black py-2 px-5 rounded "
+                            onClick={signOutUser}
+                        >
+                            sign out
+                        </button>
+
+                        <Link to={"/profile"}>
+                            <img src={Profile} alt="avater" className="w-[40px] mx-3" />
+                        </Link>
+
+                    </div>
                 )
             }
 

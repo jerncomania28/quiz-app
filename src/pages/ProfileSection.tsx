@@ -5,9 +5,11 @@ import Profile from "../assets/profile.png";
 import { useCurrentData } from "../utils/hooks";
 
 //components 
-import TeacherList from "../components/TeachersList";
-import StudentList from "../components/StudentsList";
+// import TeacherList from "../components/TeachersList";
+// import StudentList from "../components/StudentsList";
 import Navigation from "../components/Navigation";
+
+import ListTemplate from "../components/ListTemplate";
 
 const ProfileSection = () => {
 
@@ -24,7 +26,7 @@ const ProfileSection = () => {
 
             <Navigation />
 
-            <div className="w-[90%] h-full md:w-[60%] mx-auto flex justify-center items-center flex-col">
+            <div className="w-[90%] h-full md:w-[60%] mx-auto flex justify-center items-center flex-col py-[3rem]">
                 <img src={Profile} alt="profile" className="w-[120px] my-3" />
                 <h1 className="my-1 text-[25px] font-bold">{user.displayName}</h1>
                 <p>{user.role}</p>
@@ -52,8 +54,8 @@ const ProfileSection = () => {
                     </button>
                 }
 
-                {user.role === "student" && <TeacherList data={user.listOfTeachers} />}
-                {user.role === "teacher" && <StudentList data={user.listOfStudents} />}
+                {user.role === "student" && <ListTemplate data={user.listOfTeachers} />}
+                {user.role === "teacher" && <ListTemplate data={user.listOfStudents} />}
             </div>
         </div>
 

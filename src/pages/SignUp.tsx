@@ -11,8 +11,7 @@ import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // authentication 
-import { createUserViaEmailAndPassword, createUserDoc, getCurrentUser, auth } from "../utils/firebase";
-import { Navigate } from "react-router-dom";
+import { createUserViaEmailAndPassword, createUserDoc } from "../utils/firebase";
 
 interface FormInputProps {
     firstName: string;
@@ -86,16 +85,7 @@ const SignUp = () => {
                 }
             )
 
-            const currentUser = await getCurrentUser(auth);
-
-
-            currentUser && navigate("/profile")
-
-            // if (currentUser?.role.trim() === "student") {
-            //     return navigate("/student");
-            // } else if (currentUser?.role.trim() === "teacher") {
-            //     return navigate("/teacher")
-            // }
+            navigate("/");
 
             handleReset();
 
