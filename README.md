@@ -1,4 +1,6 @@
-Quiz Application
+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
+
+# Quiz Application
 
 # Introduction
 
@@ -29,9 +31,7 @@ Quiz Application is a web-app that allows users to sign up as either a student o
 - Vite - Bundlers
 - Firebase - Authentication and Database Support
 
-
-
-## How to Start Project 
+## How to Start Project
 
 > clon the github repository using `git clone`
 > run `npm install` to install all dependencies used in the Project.
