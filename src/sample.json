@@ -1,0 +1,100 @@
+[
+    {
+        "course": "programming",
+        "questions": [
+            {
+                "id": 3442,
+                "question": "what does HTML stand for ?",
+                "options": [
+                    "hypertext markup language",
+                    "hypertext mark language",
+                    "hyper markup language",
+                    "htext markup language"
+                ],
+                "correctAnswer": "hypertext markup language"
+            },
+            {
+                "id": 3443,
+                "question": "what does CSS stand for ?",
+                "options": [
+                    "cascading style sheet",
+                    "cascade style sheet",
+                    "cascading styling sheet",
+                    "cascode style sheet"
+                ],
+                "correctAnswer": "cascading style sheet"
+            },
+            {
+                "id": 3444,
+                "question": "what does API stand for ?",
+                "options": [
+                    "application programming interface",
+                    "app programming interface",
+                    "application programming internet",
+                    "application program interface"
+                ],
+                "correctAnswer": "application programming interface"
+            },
+            {
+                "id": 3445,
+                "question": "what is the full meaning of DNS ?",
+                "options": [
+                    "domain name server",
+                    "domain name service",
+                    "domain naming server",
+                    "domain name servicing"
+                ],
+                "correctAnswer": "domain name server"
+            },
+            {
+                "id": 3446,
+                "question": "what does JSON stand for ?",
+                "options": [
+                    "javascript style oriented nature",
+                    "javascript object notation",
+                    "javascript solid nature",
+                    "java object notation"
+                ],
+                "correctAnswer": "javascript object notation"
+            },
+            {
+                "id": 3447,
+                "question": "what does GPU  mean ?",
+                "options": [
+                    "Graphic processing unit",
+                    "Graphics processing unit",
+                    "graphic programming unit",
+                    "Grapical processing unicode"
+                ],
+                "correctAnswer": "Graphics processing unit"
+            }
+        ]
+    },
+    {
+        "course": "Current Affairs",
+        "questions": [
+            {
+                "id": 4456,
+                "question": "who is the President of Nigeria ?",
+                "options": [
+                    "Muhammed Buhari",
+                    "Goodluck Ebele Jonathan",
+                    "Olusegun Obasanjo",
+                    "Shehu Shagari"
+                ],
+                "correctAnswer": "Muhammed Buhari"
+            },
+            {
+                "id": 4457,
+                "question": "what does EFCC stands For ?",
+                "options": [
+                    "Economic Financial Crime Circle",
+                    "Economic Financial Crime Committee",
+                    "Economic Financial Crime Commission",
+                    "Economic Financial Crime Census"
+                ],
+                "correctAnswer": "Economic Financial Crime Commission"
+            }
+        ]
+    }
+]
