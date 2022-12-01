@@ -8,6 +8,7 @@ import Question from "../components/Question";
 import SAMPLES from "../sample.json";
 
 
+
 const StartPage = () => {
 
     const [courseQuestions, setCourseQuestions] = useState<any>([]);
@@ -74,6 +75,8 @@ const StartPage = () => {
         }, 0)
 
         setScore(sumOfScore)
+
+        return sumOfScore
     }
 
 
@@ -81,8 +84,6 @@ const StartPage = () => {
         console.log("Test Submitted !!!");
 
         calculateScore();
-
-        console.log("handle submit score :", score);
 
         setSubmitNotification(!submitNotification);
     }
@@ -161,7 +162,7 @@ const StartPage = () => {
                             <h1 className="flex justify-between my-2">
                                 <span> Percentage score : </span>
                                 {
-                                    ((score / previousQuestions.length) * 100).toFixed(2)
+                                    ((score / courseQuestions.length) * 100).toFixed(2)
                                 }
                             </h1>
 

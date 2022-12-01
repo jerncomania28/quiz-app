@@ -1,4 +1,3 @@
-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
 
 # Quiz Application
 

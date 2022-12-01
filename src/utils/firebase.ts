@@ -15,7 +15,8 @@ import {
     setDoc,
     query,
     collection,
-    getDocs
+    getDocs,
+    writeBatch
 } from "firebase/firestore"
 
 
@@ -125,5 +126,33 @@ export const getCurrentUser = async (auth: any) => {
 
     return currentUserSnapshot.data();
 }
+
+
+export const setScoreBoard = async (auth: any, score: number) => {
+
+    const userDocRef = doc(db, "scoreboard", auth.uid)
+
+    const timeTaken = new Date()
+
+
+    console.log("firebase scoreboard", score)
+
+    const batch = writeBatch(db);
+
+
+    if (score) {
+        batch.set(userDocRef, {
+            score,
+            timeTaken
+        })
+    }
+
+    await batch.commit();
+
+    console.log("done")
+
+}
+
+
 
 

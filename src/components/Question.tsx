@@ -51,7 +51,7 @@ const Question = ({ Question, currentQuestion, totalQuestions, handleNext, handl
             <div className="w-full relative flex justify-between items-center">
                 {
                     currentQuestion !== 0 && (
-                        <Button type="button" Fn={handlePrev} className="w-[200px]">
+                        <Button type="button" Fn={handlePrev} className="w-[150px] md:w-[200px]">
                             Prev
                         </Button>
                     )
@@ -60,11 +60,11 @@ const Question = ({ Question, currentQuestion, totalQuestions, handleNext, handl
 
                 {
                     currentQuestion === totalQuestions ? (
-                        <Button type="button" Fn={handleSubmit} className="w-[200px]">
+                        <Button type="button" Fn={handleSubmit} className="w-[150px] md:w-[200px]">
                             Submit
                         </Button>
                     ) : (
-                        <Button type="button" Fn={handleNext} className="w-[200px]">
+                        <Button type="button" Fn={handleNext} className="w-[150px] md:w-[200px]">
                             Next
                         </Button>
                     )
