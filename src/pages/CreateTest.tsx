@@ -146,7 +146,7 @@ const CreateTest = () => {
             <Navigation />
 
             {
-                dataSent && (
+                !dataSent && (
                     <>
 
                         <h1 className="text-[20px] font-bold capitalize text-center my-4"> create students test</h1>
@@ -274,7 +274,7 @@ const CreateTest = () => {
 
 
             {
-                !dataSent && (
+                dataSent && (
 
                     <div className="flex justify-center items-center flex-col">
                         <h1 className="text-[20px] font-bold"> Test Successfully Uploaded to Database !!</h1>
