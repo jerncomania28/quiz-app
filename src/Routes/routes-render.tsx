@@ -49,7 +49,11 @@ const routeConfig = [
     },
     {
         path: "/test/:courseId",
-        element: <StartPage />
+        element: (
+            <ProtectedRoutes>
+                <StartPage />
+            </ProtectedRoutes>
+        )
     },
     {
         path: "/create-test",

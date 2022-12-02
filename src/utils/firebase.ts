@@ -154,5 +154,12 @@ export const setScoreBoard = async (auth: any, score: number) => {
 }
 
 
-
+export const setCourseQuestions = async (collectionKey: string, objectToAdd: any) => {
+    const collectionRef = collection(db, collectionKey)
+    const batch = writeBatch(db)
+    const userDocRef = doc(collectionRef, objectToAdd.course)
+    batch.set(userDocRef, objectToAdd)
+    await batch.commit();
+    console.log("sent!!")
+}
 
