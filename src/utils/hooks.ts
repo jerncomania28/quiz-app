@@ -16,3 +16,10 @@ export const useCurrentData = () => {
 
     return _user;
 }
+
+
+export const shortenRoute = (route: string) => {
+
+    return route.toLowerCase().trim().split(" ").join("-")
+
+}

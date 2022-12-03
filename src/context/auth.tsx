@@ -3,7 +3,9 @@ import { createContext, useState } from "react";
 
 const initialState = {
     isLoggedIn: false,
-    handleIsLoggedIn: (_ac: boolean) => null
+    handleIsLoggedIn: (_ac: boolean) => null,
+    courses: [],
+    handleSetCourse: (courses: any) => null
 }
 
 
@@ -13,13 +15,21 @@ const AuthProvider = ({ children }: { children: any }) => {
 
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
+    const [courses, setCourses] = useState<any>()
+
     const handleIsLoggedIn = (_ac: boolean) => {
         setIsLoggedIn(_ac)
     }
 
+    const handleSetCourse = (courses: any) => {
+        setCourses(courses)
+    }
+
     const value = {
         isLoggedIn,
-        handleIsLoggedIn
+        handleIsLoggedIn,
+        courses,
+        handleSetCourse
     }
 
     return (

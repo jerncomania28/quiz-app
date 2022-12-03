@@ -117,6 +117,23 @@ export const getAllUsers = async (collectionkey: string) => {
 
 }
 
+export const getAllCourses = async () => {
+    const collectionRef = collection(db, "courses");
+
+    const q = query(collectionRef)
+
+    const allCoursesSnapshot = await getDocs(q)
+
+    const courses = allCoursesSnapshot.docs.map((course: any, _idx) => {
+        return course.data()
+    })
+
+    console.log("courses" , courses)
+
+    return courses;
+}
+
+getAllCourses()
 
 export const getCurrentUser = async (auth: any) => {
 

@@ -18,6 +18,15 @@ interface QuestionProps {
 
 const Question = ({ Question, currentQuestion, totalQuestions, handleNext, handlePrev, handleOptions, previousQuestion, handleSubmit }: QuestionProps) => {
 
+
+
+    if (!Question) {
+        return (
+            <div>
+                Loading...
+            </div>
+        )
+    }
     return (
 
         <div className="w-[95%] mx-auto md:w-[60%] relative">

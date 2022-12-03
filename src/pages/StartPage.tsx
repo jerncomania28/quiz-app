@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom"
 // components 
 import Navigation from "../components/Navigation"
 import Question from "../components/Question";
 
-// data 
-import SAMPLES from "../sample.json";
+// context
+import { AuthContext } from "../context/auth";
 
-
+import { shortenRoute } from "../utils/hooks";
 
 const StartPage = () => {
 
@@ -17,28 +17,18 @@ const StartPage = () => {
     const [score, setScore] = useState<number>(0);
     const [previousQuestions, setPreviousQuestions] = useState<any>([]);
 
-
-
-    // varaibles needed 
-    /*
-
-     NumberOfQuestions Not Answered  = courseQuestions.length - previousQuestions.length
-
-     Number of Questions Answered = previousQuestions.length
-
-     total Number of Questions Correct 
-
-     Wrong Answers - previousQuestions.length - score 
-    
-    */
+    const { courses } = useContext(AuthContext)
 
     const param = useParams();
-    const navigate = useNavigate();
 
     useEffect(() => {
-        const course = SAMPLES.find(sample => {
-            return sample.course.trim() === param.courseId
+
+
+        const course = courses.find((course: any, _idx: number) => {
+            const route = shortenRoute(course.course)
+            return route === param.courseId
         })
+
         setCourseQuestions(course?.questions)
     }, [])
 
@@ -127,13 +117,26 @@ const StartPage = () => {
     }
 
 
+    console.log(courses)
+
+    if (!courses) {
+
+        return (
+            <div>
+                Loading...
+            </div>
+        )
+
+    }
+
+
     return (
         <div className="w-full relative">
             <Navigation />
 
             {
 
-                courseQuestions.length && !submitNotification && (
+                courseQuestions && !submitNotification && (
 
                     <Question
                         Question={courseQuestions[currentQuestion]}

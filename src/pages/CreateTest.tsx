@@ -75,6 +75,8 @@ const CreateTest = () => {
 
     const [dataSent, setDataSent] = useState<boolean>(false)
 
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+
     const handleCourseName = (e: any) => {
         setCourseName(e.target.value)
     }
@@ -129,8 +131,11 @@ const CreateTest = () => {
 
     const handleSetQuestionToDatabase = async () => {
 
+        setIsLoading(true)
+
         await setCourseQuestions("courses", questionArray)
 
+        setIsLoading(false)
         console.log("questions uploaded to database")
         setDataSent(!dataSent);
     }
@@ -260,7 +265,11 @@ const CreateTest = () => {
                                     </Button>
 
                                     <Button type="button" Fn={handleSetQuestionToDatabase} className={"w-[150px] text-[14px] md:w-[200px] md:text-[17px]"}>
-                                        send Questions
+
+                                        {
+                                            isLoading ? "loading..." : " send Questions"
+                                        }
+
                                     </Button>
 
                                 </div>
