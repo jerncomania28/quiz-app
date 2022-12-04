@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { useParams, useNavigate } from "react-router-dom"
+import { useParams } from "react-router-dom"
 // components 
 import Navigation from "../components/Navigation"
 import Question from "../components/Question";
@@ -22,8 +22,6 @@ const StartPage = () => {
     const param = useParams();
 
     useEffect(() => {
-
-
         const course = courses.find((course: any, _idx: number) => {
             const route = shortenRoute(course.course)
             return route === param.courseId
@@ -31,7 +29,6 @@ const StartPage = () => {
 
         setCourseQuestions(course?.questions)
     }, [])
-
 
 
     const handlePrev = () => {
@@ -55,26 +52,18 @@ const StartPage = () => {
 
         const sumOfScore = previousQuestions.reduce((acc: number, previousQuestion: any) => {
             const { selectedAnswer, correctAnswer } = previousQuestion;
-
             if (selectedAnswer == correctAnswer) {
                 return acc + 1
             }
-
             return acc;
-
         }, 0)
-
         setScore(sumOfScore)
-
         return sumOfScore
     }
 
 
     const handleSubmit = () => {
-        console.log("Test Submitted !!!");
-
         calculateScore();
-
         setSubmitNotification(!submitNotification);
     }
 
@@ -116,17 +105,12 @@ const StartPage = () => {
 
     }
 
-
-    console.log(courses)
-
     if (!courses) {
-
         return (
-            <div>
+            <div className="w-full h-[100vh] flex justify-center items-center">
                 Loading...
             </div>
         )
-
     }
 
 

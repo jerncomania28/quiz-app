@@ -1,13 +1,18 @@
 
 
 import { useState } from "react"
-import { Link } from "react-router-dom"
 
 // components
 import Navigation from "../components/Navigation"
 import Button from "../components/Button"
+import CreateTestInput from "../components/CreateTestInput"
+import DatabaseSubmissionUpdate from "../components/DatabaseSubmissionUpdate"
 
 import { setCourseQuestions } from "../utils/firebase"
+
+// icons
+import { faArrowDown } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 interface QuestionProps {
     id: number | string;
@@ -16,37 +21,11 @@ interface QuestionProps {
     correctAnswer: string;
 }
 
-interface CreateTestInputProps {
-    type: string;
-    placeholder: string;
-    name: string;
-    value: string | number;
-    handleChange: (e: any) => void;
-    className?: string;
-}
-
 interface QuestionArrayProps {
     course: string;
     questions: QuestionProps[];
 }
 
-
-
-const CreateTestInput = ({ type, placeholder, name, value, handleChange, className }: CreateTestInputProps) => {
-
-    return (
-
-        <input
-            type={type}
-            placeholder={placeholder}
-            name={name}
-            value={value}
-            onChange={handleChange}
-            className={`rounded outline-none border-none bg-[#ddd] indent-[10px] break-words focus:border-solid focus:border-[1px] focus:border-[#434343] ${className}`}
-        />
-
-    )
-}
 
 
 const CreateTest = () => {
@@ -69,13 +48,18 @@ const CreateTest = () => {
 
     const [optionInput, setOptionInput] = useState<string>("")
 
-    const [correctAnswer, setCorrectAnswer] = useState<string>("")
-
     const [questionArray, setQuestionArray] = useState<QuestionArrayProps>(defaultQuestionArrayInput)
 
     const [dataSent, setDataSent] = useState<boolean>(false)
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
+
+    const [showOptionList, setShowOptionList] = useState<boolean>(false)
+
+
+    const handleShowOptionList = () => {
+        setShowOptionList(!showOptionList)
+    }
 
     const handleCourseName = (e: any) => {
         setCourseName(e.target.value)
@@ -99,52 +83,30 @@ const CreateTest = () => {
         setOptionInput("")
     }
 
-    const handleCorrectAnswer = (e: any) => {
-        setCorrectAnswer(e.target.value)
-    }
+    const handleAddCorrectAnswer = (_idx: number) => {
 
-    const handleAddCorrectAnswer = () => {
-        if (correctAnswer) {
-            setQuestionParams({ ...questionParams, correctAnswer: correctAnswer.toLowerCase() })
-        } else {
-            alert("correct answer must be filled!")
-        }
+        setQuestionParams({ ...questionParams, correctAnswer: questionParams.options[_idx] })
 
-        setCorrectAnswer("")
+        handleShowOptionList()
     }
 
 
     const handleSubmitQuestion = () => {
-
         if (!Object.values(questionParams).every(Boolean) || !courseName) {
             alert("Form Not Completely Filled!")
-
             return;
         }
-
         setQuestionArray({ course: courseName, questions: [...questionArray.questions, questionParams] })
-
         setQuestionParams(defaultQuestionInput)
-
     }
 
 
     const handleSetQuestionToDatabase = async () => {
-
         setIsLoading(true)
-
         await setCourseQuestions("courses", questionArray)
-
         setIsLoading(false)
-        console.log("questions uploaded to database")
         setDataSent(!dataSent);
     }
-
-
-    console.log("question parameters", questionParams)
-
-    console.log("questions array", questionArray)
-
 
     return (
         <div className="w-full relative">
@@ -232,29 +194,15 @@ const CreateTest = () => {
                                     </Button>
                                 </div>
 
-                                {
 
-                                    questionParams.correctAnswer && (
-                                        <p className="rounded px-3 py-3 w-full my-2 text-white bg-black">
-                                            {questionParams.correctAnswer}
-                                        </p>
-                                    )
-                                }
+                                <div className="flex w-full justify-between my-4 relative">
 
-
-                                <div className="flex w-full justify-between my-4">
-                                    <CreateTestInput
-                                        type="text"
-                                        placeholder="Correct Answer"
-                                        name="correctAnswer"
-                                        value={correctAnswer}
-                                        handleChange={handleCorrectAnswer}
-                                        className={" w-[70%] mr-2 py-4"}
-                                    />
-
-                                    <Button type="button" Fn={handleAddCorrectAnswer} className={"w-[30%] my-auto text-[14px] md:text-[17px] py-4"}>
-                                        Add Answer
-                                    </Button>
+                                    <div
+                                        className="w-full p-[1rem] bg-black text-white rounded text-[20px] font-bold flex justify-between"
+                                        onClick={handleShowOptionList}>
+                                        <span>{questionParams.correctAnswer ? questionParams.correctAnswer : "Select Answer"} </span>
+                                        <FontAwesomeIcon icon={faArrowDown} className="text-white" />
+                                    </div>
 
                                 </div>
 
@@ -264,13 +212,17 @@ const CreateTest = () => {
                                         add question
                                     </Button>
 
-                                    <Button type="button" Fn={handleSetQuestionToDatabase} className={"w-[150px] text-[14px] md:w-[200px] md:text-[17px]"}>
+                                    {
 
-                                        {
-                                            isLoading ? "loading..." : " send Questions"
-                                        }
+                                        questionArray.questions.length > 0 && (
 
-                                    </Button>
+                                            <Button type="button" Fn={handleSetQuestionToDatabase} className={"w-[150px] text-[14px] md:w-[200px] md:text-[17px]"}>
+                                                {
+                                                    isLoading ? "loading..." : " send Questions"
+                                                }
+                                            </Button>
+                                        )
+                                    }
 
                                 </div>
                             </div>
@@ -283,18 +235,29 @@ const CreateTest = () => {
 
 
             {
-                dataSent && (
+                dataSent && <DatabaseSubmissionUpdate />
+            }
 
-                    <div className="flex justify-center items-center flex-col">
-                        <h1 className="text-[20px] font-bold"> Test Successfully Uploaded to Database !!</h1>
 
-                        <Link
-                            to={"/profile"}
-                            className={"px-[2.5rem] py-2 rounded bg-black text-white my-3"}
-                        >
-                            Profile
-                        </Link>
-                    </div>
+            {
+                showOptionList && (
+                    <>
+                        <div className="w-full h-full fixed top-[0rem] left-[0rem] bg-black opacity-50"></div>
+
+                        <div className="absolute top-[50%] left-[50%] transform -translate-x-[50%] -translate-y-[50% bg-white rounded w-[50%] mx-auto">
+
+                            {
+                                questionParams.options.map((option, _idx) => {
+                                    return (
+                                        <p className="w-full p-[1rem] text-[15px]" onClick={() => handleAddCorrectAnswer(_idx)}>
+                                            {option}
+                                        </p>
+                                    )
+
+                                })
+                            }
+                        </div>
+                    </>
                 )
             }
         </div>

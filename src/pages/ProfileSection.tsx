@@ -4,22 +4,15 @@ import Profile from "../assets/profile.png";
 
 import { useCurrentData } from "../utils/hooks";
 
-//components 
-// import TeacherList from "../components/TeachersList";
-// import StudentList from "../components/StudentsList";
+//components
 import Navigation from "../components/Navigation";
-
 import ListTemplate from "../components/ListTemplate";
 
 const ProfileSection = () => {
-
     const user = useCurrentData();
-
     const navigate = useNavigate();
 
-    console.log(user)
-
-    if (!user) return <p>Loading ... </p>;
+    if (!user) return <p className="text-[20px] font-bold w-full h-[100vh] flex justify-center items-center">Loading ... </p>;
 
     return (
         <div className="relative w-full">
