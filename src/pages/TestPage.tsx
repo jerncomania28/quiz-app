@@ -30,7 +30,7 @@ const TestPage = () => {
     }, [])
 
     if (!courses) {
-        return <div> Loading ...</div>
+        return <div className="text-[20px] font-bold w-full h-[100vh] flex justify-center items-center"> Loading ...</div>
 
     }
 
