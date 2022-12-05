@@ -3,7 +3,7 @@
 
 # Introduction
 
-Quiz Application is a web-app that allows users to sign up as either a student or a teacher , based on the roles sign-up as there are actions that can be performed Based on these profiles.
+Quiz Application is a web-app that allows users to sign up as either a student or a teacher , based on the roles you sign-up as there are actions that can be performed Based on these profiles.
 
 > Teacher
 
@@ -22,17 +22,19 @@ Quiz Application is a web-app that allows users to sign up as either a student o
 - profile page
 - create test page
 - Take test page
+- score board page
 
 ## Technologies used :-
 
 - React
-- Typesscript
-- Vite - Bundlers
+- Typescript
+- Vite - Bundler
 - Firebase - Authentication and Database Support
+- tailwindcss - styling
 
 ## How to Start Project
 
-> clon the github repository using `git clone`
+> clone the github repository using `git clone`
 > run `npm install` to install all dependencies used in the Project.
 > run `npm run dev` to serve the project Up on local host
 > go to your browser and input `localhost:5173` in the URL box.
