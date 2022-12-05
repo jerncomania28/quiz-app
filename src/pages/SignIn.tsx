@@ -13,8 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 // authentication
 import { signInViaEmailAndPassword, getCurrentUser, auth } from "../utils/firebase"
-import { connectFirestoreEmulator } from "firebase/firestore"
-
+import { createAndUpdateScoreBoard } from "../utils/firebase"
 interface SignInDataProps {
     email: string;
     password: string;
@@ -63,6 +62,8 @@ const SignIn = () => {
             await signInViaEmailAndPassword(email, password);
 
             const currentUser = await getCurrentUser(auth);
+
+            // await createAndUpdateScoreBoard(auth, { course: "test", score: "75" })
 
 
             currentUser && navigate("/profile")

@@ -1,5 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 // components 
 import Navigation from "../components/Navigation"
 import Question from "../components/Question";
@@ -9,6 +10,8 @@ import { AuthContext } from "../context/auth";
 
 import { shortenRoute } from "../utils/hooks";
 
+import { createAndUpdateScoreBoard, auth } from "../utils/firebase";
+
 const StartPage = () => {
 
     const [courseQuestions, setCourseQuestions] = useState<any>([]);
@@ -17,9 +20,13 @@ const StartPage = () => {
     const [score, setScore] = useState<number>(0);
     const [previousQuestions, setPreviousQuestions] = useState<any>([]);
 
+    const [courseName, setCourseName] = useState<string>("")
+
     const { courses } = useContext(AuthContext)
 
     const param = useParams();
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const course = courses.find((course: any, _idx: number) => {
@@ -28,6 +35,7 @@ const StartPage = () => {
         })
 
         setCourseQuestions(course?.questions)
+        setCourseName(course?.course)
     }, [])
 
 
@@ -62,22 +70,20 @@ const StartPage = () => {
     }
 
 
-    const handleSubmit = () => {
-        calculateScore();
+    const handleSubmit = async () => {
+        const calculatedScore = calculateScore();
+        const percentage = ((calculatedScore / courseQuestions.length) * 100).toFixed(2)
+        createAndUpdateScoreBoard(auth, { course: courseName, score: percentage })
         setSubmitNotification(!submitNotification);
     }
 
 
 
     const handleOptions = (_idx: number) => {
-
         const answeredQuestion = previousQuestions.find((previousQuestion: any, _idx: number) => {
             return previousQuestion?.id === courseQuestions[currentQuestion].id
-
         })
-
         if (answeredQuestion) {
-
             const newPreviousQuestion = previousQuestions.map((previousQuestion: any) => {
                 return previousQuestion.id === courseQuestions[currentQuestion].id ?
                     {
@@ -87,11 +93,8 @@ const StartPage = () => {
                     }
                     : previousQuestion
             })
-
             setPreviousQuestions(newPreviousQuestion);
-
         } else {
-
             setPreviousQuestions([...previousQuestions,
             {
                 id: courseQuestions[currentQuestion].id,
@@ -99,10 +102,7 @@ const StartPage = () => {
                 correctAnswer: courseQuestions[currentQuestion].correctAnswer,
                 optionIndex: _idx
             }]);
-
         }
-
-
     }
 
     if (!courses) {
@@ -140,7 +140,7 @@ const StartPage = () => {
             {
 
                 submitNotification && (
-                    <div className="text-[20px] w-[90%] mx-auto font-bold md:w-[60%] mx-auto my-[3rem]">
+                    <div className="text-[20px] w-[90%] mx-auto font-bold md:w-[60%] mx-auto my-[3rem] flex justify-center flex-col">
 
                         <p>Test Successfully Submitted !! </p>
 
@@ -182,6 +182,15 @@ const StartPage = () => {
                             </p>
 
                         </div>
+
+                        <button
+                            type="button"
+                            className="text-white bg-black py-2 px-8 rounded my-4 outline-none border-none"
+                            onClick={() => navigate("/test")}
+                        >
+                            Test
+
+                        </button>
 
 
                     </div>

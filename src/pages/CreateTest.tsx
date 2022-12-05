@@ -1,6 +1,7 @@
 
 
 import { useState } from "react"
+import { v4 as uuidv4 } from 'uuid';
 
 // components
 import Navigation from "../components/Navigation"
@@ -15,7 +16,6 @@ import { faArrowDown } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 interface QuestionProps {
-    id: number | string;
     question: string;
     options: string[];
     correctAnswer: string;
@@ -30,31 +30,34 @@ interface QuestionArrayProps {
 
 const CreateTest = () => {
 
-    const defaultQuestionInput = {
-        id: "",
-        question: "",
-        options: [],
-        correctAnswer: ""
-    }
 
     const defaultQuestionArrayInput = {
         course: "",
         questions: []
     }
 
+    const [questionArray, setQuestionArray] = useState<QuestionArrayProps>(defaultQuestionArrayInput)
+
+
+    const defaultQuestionInput = {
+        question: "",
+        options: [],
+        correctAnswer: ""
+    }
+
+
     const [courseName, setCourseName] = useState<string>("")
 
-    const [questionParams, setQuestionParams] = useState<QuestionProps>(defaultQuestionInput)
+    const [questionParams, setQuestionParams] = useState<any>(defaultQuestionInput)
 
     const [optionInput, setOptionInput] = useState<string>("")
-
-    const [questionArray, setQuestionArray] = useState<QuestionArrayProps>(defaultQuestionArrayInput)
 
     const [dataSent, setDataSent] = useState<boolean>(false)
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const [showOptionList, setShowOptionList] = useState<boolean>(false)
+
 
 
     const handleShowOptionList = () => {
@@ -96,7 +99,8 @@ const CreateTest = () => {
             alert("Form Not Completely Filled!")
             return;
         }
-        setQuestionArray({ course: courseName, questions: [...questionArray.questions, questionParams] })
+        const generatedUUID = uuidv4();
+        setQuestionArray({ course: courseName, questions: [...questionArray.questions, { ...questionParams, id: generatedUUID }] })
         setQuestionParams(defaultQuestionInput)
     }
 
@@ -108,6 +112,9 @@ const CreateTest = () => {
         setDataSent(!dataSent);
     }
 
+
+    console.log("question params", questionParams)
+    console.log("question array", questionArray)
     return (
         <div className="w-full relative">
             <Navigation />
@@ -139,19 +146,6 @@ const CreateTest = () => {
 
 
                             <div className="w-full relative my-3">
-
-                                <CreateTestInput
-
-                                    type="number"
-                                    placeholder="ID"
-                                    name="id"
-                                    value={questionParams.id}
-                                    handleChange={handleChange}
-                                    className={"w-[100px] my-3 text-center py-2 px-2 "}
-
-                                />
-
-
                                 <CreateTestInput
                                     type="text"
                                     placeholder="Enter Question"
@@ -164,7 +158,7 @@ const CreateTest = () => {
 
                                 <div className="flex flex-col relative">
                                     {
-                                        questionParams.options.map((option, _idx) => {
+                                        questionParams.options.map((option:string, _idx:number) => {
 
                                             return (
                                                 <p
@@ -244,12 +238,16 @@ const CreateTest = () => {
                     <>
                         <div className="w-full h-full fixed top-[0rem] left-[0rem] bg-black opacity-50"></div>
 
-                        <div className="absolute top-[50%] left-[50%] transform -translate-x-[50%] -translate-y-[50% bg-white rounded w-[50%] mx-auto">
+                        <div className="absolute top-[50%] left-[50%] transform -translate-x-[50%] bg-white rounded w-[300px] md:w-[50%] mx-auto">
 
                             {
-                                questionParams.options.map((option, _idx) => {
+                                questionParams.options.map((option:string, _idx:number) => {
                                     return (
-                                        <p className="w-full p-[1rem] text-[15px]" onClick={() => handleAddCorrectAnswer(_idx)}>
+                                        <p
+                                            className="w-full p-[1rem] text-[15px] hover:bg-black hover:text-white"
+                                            onClick={() => handleAddCorrectAnswer(_idx)}
+                                            key={_idx}
+                                        >
                                             {option}
                                         </p>
                                     )

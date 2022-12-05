@@ -7,6 +7,7 @@ import SignUp from "../pages/SignUp";
 import TestPage from "../pages/TestPage";
 import CreateTest from "../pages/CreateTest";
 import StartPage from "../pages/StartPage";
+import ScoreBoard from "../pages/ScoreBoard";
 
 import ProfileSection from "../pages/ProfileSection";
 
@@ -60,6 +61,14 @@ const routeConfig = [
         element: (
             <ProtectedRoutes>
                 <CreateTest />
+            </ProtectedRoutes>
+        )
+    },
+    {
+        path: "/scoreboard",
+        element: (
+            <ProtectedRoutes>
+                <ScoreBoard />
             </ProtectedRoutes>
         )
     }

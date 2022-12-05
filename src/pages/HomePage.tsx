@@ -1,16 +1,19 @@
-import { useNavigate } from "react-router-dom";
 import Navigation from "../components/Navigation";
 
 
 const HomePage = () => {
-    const navigate = useNavigate();
+
     return (
         <div className="relative w-full">
             <Navigation />
 
-            <h1 className="text-[20px] text-center font-bold uppercase my-3">
-                Quiz Web  Application
-            </h1>
+            <div 
+            className="w-full h-[80vh] relative bg-[url('/src/assets/bg.jpg')] bg-no-repeat bg-cover ">
+                <h1 className="text-[20px] text-center font-bold uppercase my-3 absolute top-[50%] left-[50%] transform -translate-x-[50%] whitespace-nowrap">
+                    Quiz Web  Application
+                </h1>
+
+            </div>
 
 
         </div>

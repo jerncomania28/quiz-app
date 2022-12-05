@@ -33,8 +33,8 @@ const Navigation = () => {
 
             <Link
                 to={"/"}
-                className="text-[16px] font-bold ">
-                Logo
+                className="text-[14px] font-bold md:text-[16px] ">
+                quiz web app
             </Link>
 
             {

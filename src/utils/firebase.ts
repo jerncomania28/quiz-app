@@ -123,3 +123,40 @@ export const setCourseQuestions = async (collectionKey: string, objectToAdd: any
     console.log("sent!!")
 }
 
+
+export const createAndUpdateScoreBoard = async (userAuth: any, object = {}) => {
+    const userDocRef = doc(db, "scoreboard", userAuth.currentUser.uid)
+    const scoreSnapshot = await getDoc(userDocRef)
+
+    const currentUser = await getCurrentUser(userAuth)
+    if (scoreSnapshot.exists()) {
+        const updatedAt = new Date()
+        try {
+            setDoc(userDocRef, {
+                ...scoreSnapshot.data(),
+                createdAt: updatedAt,
+                results: [...scoreSnapshot.data().results, object]
+            })
+        } catch (err) { console.error(err) }
+    } else {
+        const createdAt = new Date()
+        try {
+            setDoc(userDocRef, { createdAt, results: [object], name: currentUser?.displayName })
+        } catch (err) { console.error(err) }
+    }
+
+}
+
+
+export const getAllScoreBoardData = async () => {
+    const collectionRef = collection(db, "scoreboard");
+    const q = query(collectionRef)
+    const allScoreBoardData = await getDocs(q)
+
+    const allScores = allScoreBoardData.docs.map((score: any, _idx) => {
+        return score.data()
+    })
+
+    console.log("all scores", allScores)
+    return allScores;
+}

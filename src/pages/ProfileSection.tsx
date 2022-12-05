@@ -26,25 +26,53 @@ const ProfileSection = () => {
 
                 {
                     user.role === "student" &&
-                    <button
-                        type="button"
-                        className="text-white bg-black py-2 px-8 rounded my-4 outline-none border-none"
-                        onClick={() => navigate("/test")}
-                    >
-                        Take Test
+                    (
+                        <>
+                            <button
+                                type="button"
+                                className="text-white bg-black py-2 px-8 rounded my-4 outline-none border-none"
+                                onClick={() => navigate("/test")}
+                            >
+                                Take Test
 
-                    </button>
+                            </button>
+
+                            <button
+                                type="button"
+                                className="text-white bg-black py-2 px-8 rounded my-4 outline-none border-none"
+                                onClick={() => navigate("/scoreboard")}
+                            >
+                                ScoreBoard
+
+                            </button>
+                        </>
+                    )
+
+
                 }
                 {
-                    user.role === "teacher" &&
-                    <button
-                        type="button"
-                        className="text-white bg-black py-2 px-8 rounded my-4 outline-none border-none"
-                        onClick={() => navigate("/create-test")}
-                    >
-                        Create Test
+                    user.role === "teacher" && (
+                        <>
+                            <button
+                                type="button"
+                                className="text-white bg-black py-2 px-8 rounded my-4 outline-none border-none"
+                                onClick={() => navigate("/create-test")}
+                            >
+                                Create Test
 
-                    </button>
+                            </button>
+
+
+                            <button
+                                type="button"
+                                className="text-white bg-black py-2 px-8 rounded my-4 outline-none border-none"
+                                onClick={() => navigate("/scoreboard")}
+                            >
+                                ScoreBoard
+
+                            </button>
+                        </>
+                    )
                 }
 
                 {user.role === "student" && <ListTemplate data={user.listOfTeachers} />}

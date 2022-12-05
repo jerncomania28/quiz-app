@@ -32,7 +32,7 @@ const Question = ({ Question, currentQuestion, totalQuestions, handleNext, handl
         <div className="w-[95%] mx-auto md:w-[60%] relative">
 
             <div className="p-[1rem] py-[1.5rem] text-[20px] text-white font-bold bg-black rounded">
-                <p className="text-[12px] my-2">{`Question ${currentQuestion}/${totalQuestions}`}</p>
+                <p className="text-[12px] my-2">{`Question ${currentQuestion + 1}/${totalQuestions + 1}`}</p>
                 {Question.question}
             </div>
 
