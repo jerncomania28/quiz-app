@@ -23,12 +23,13 @@ import {
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyD8ySkrGmo3GXFU6ddiW3lJCohxMXVWqRQ",
-    authDomain: "quiz-app-cc2e5.firebaseapp.com",
-    projectId: "quiz-app-cc2e5",
-    storageBucket: "quiz-app-cc2e5.appspot.com",
-    messagingSenderId: "317345737721",
-    appId: "1:317345737721:web:1623ab0e38acbac4ddeb28"
+    apiKey: "AIzaSyCLcSpkIcvmFRVX5fVyF8N2wfdKPekgO5Y",
+    authDomain: "nonso-quiz-app.firebaseapp.com",
+    projectId: "nonso-quiz-app",
+    storageBucket: "nonso-quiz-app.appspot.com",
+    messagingSenderId: "591175764872",
+    appId: "1:591175764872:web:3630f0e970f6d06077083d",
+    measurementId: "G-VJM9FJZNQW"
 };
 
 const app = initializeApp(firebaseConfig);
