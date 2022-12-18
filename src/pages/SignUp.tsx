@@ -72,9 +72,6 @@ const SignUp = () => {
         try {
 
             const response = await createUserViaEmailAndPassword(email, password);
-
-            console.log(response);
-
             createUserDoc(response?.user,
                 {
                     displayName: `${otherProps.firstName} ${otherProps.lastName}`,

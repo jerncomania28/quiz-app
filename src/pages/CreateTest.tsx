@@ -112,9 +112,6 @@ const CreateTest = () => {
         setDataSent(!dataSent);
     }
 
-
-    console.log("question params", questionParams)
-    console.log("question array", questionArray)
     return (
         <div className="w-full relative">
             <Navigation />

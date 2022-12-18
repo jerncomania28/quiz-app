@@ -152,11 +152,8 @@ export const getAllScoreBoardData = async () => {
     const collectionRef = collection(db, "scoreboard");
     const q = query(collectionRef)
     const allScoreBoardData = await getDocs(q)
-
     const allScores = allScoreBoardData.docs.map((score: any, _idx) => {
         return score.data()
     })
-
-    console.log("all scores", allScores)
     return allScores;
 }
